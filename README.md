@@ -23,10 +23,9 @@ https://www.youtube.com/shorts/MuAxfM_hZJw
 
 | Traditional problem | COSTYCNC solution |
 |--------------------|-------------------|
-| Cutting a hollow cylinder with internal pockets usually destroys the workpiece | Continuous path logic (loops and bridges) - wire enters, cuts internal pockets, exits on same path |
 | Requires expensive 4/5 axis CAM software | Simple image → G-code |
 | Complex programming for rotary axis | Rotary table connected to X axis |
-| User must reconfigure GRBL for each diameter | Automatic X scaling based on diameter |
+
 
 ---
 

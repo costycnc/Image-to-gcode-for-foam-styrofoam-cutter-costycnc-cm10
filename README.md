@@ -1,4 +1,3 @@
-**Created by Boboaca Costel (CostyCNC)**  
 *"Keep the credits, keep the innovation."*
 
 # COSTYCNC - Perforated Hollow Cylinder Foam Cutter

@@ -105,18 +105,6 @@ G01 X0 Y0
 
 ---
 
-## Comparison with Other Methods
-
-| Method | Can cut hollow cylinder? | Can perforate internal pockets? | Cost |
-|--------|-------------------------|--------------------------------|------|
-| COSTYCNC Hot Wire | ✅ YES | ✅ YES | Low |
-| Laser cutter | ✅ YES | ❌ NO (cannot enter/exit) | High |
-| CNC router | ❌ NO (cannot reach inside) | ❌ NO | Medium |
-| 3D printing | ✅ YES | ✅ YES | Slow, expensive |
-| Traditional hot wire (airfoils) | ❌ NO | ❌ NO | Low |
-
----
-
 ## Applications
 
 - 🔦 **Foam lampshades** (hollow with perforated light pockets)
@@ -133,39 +121,13 @@ G01 X0 Y0
 
 2. **Set GRBL once** (`$102=8.888`)
 
-3. **Open index.html** in browser
+3. **Open <a href="https://costycnc.github.io/Image-to-gcode-for-foam-styrofoam-cutter-costycnc-cm10/">Image-to-gcode</a>
 
 4. **Enter cylinder diameter** (mm)
 
 5. **Load an image** (drag & drop, paste, or file upload)
 
-6. **Click GENERATE** → G-code is created
-
-7. **Send to machine** or save to SD card
-
----
-
-## Technical Details
-
-### The Continuous Path Logic
-
-Traditional CNC cutting requires:
-- Tool enters material
-- Cuts shape
-- **Lifts tool** (impossible with hot wire)
-
-COSTYCNC method:
-- Wire enters cylinder
-- Cuts internal pockets using X rotation
-- **Exits on the same path** using loop/bridge logic
-- Cylinder remains intact
-
-### Why NO Z axis?
-
-The rotary table is on X axis, so:
-- Z axis is free for hot wire vertical movement
-- G-code is simpler (only X and Y)
-- Compatible with standard GRBL (no 4th axis firmware needed)
+6. **Send to machine** or save to SD card
 
 ---
 
@@ -181,9 +143,7 @@ The rotary table is on X axis, so:
 
 ## Installation
 
-1. Download `index.html`
-2. Open in any web browser
-3. No server needed (runs locally)
+No installation.Directly in browser!
 
 ---
 

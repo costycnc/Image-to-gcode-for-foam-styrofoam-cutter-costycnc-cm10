@@ -166,8 +166,8 @@
 </svg>
 <!---------------- image to gcode                     ----------------------------->
   <div class="row">
-  <div class="column" >
-  <!input  onchange="my();" type="text" placeholder="Write your text here..." name="text" class="input" id="litera"><input type="checkbox" id="nome" checked="" onchange="my();" class="btn1">Name<input type="checkbox" id="contourz" onchange="my();" checked="" class="btn1">Contour<hr>
+  <div class="column" style="display:none">
+  <input  onchange="my();" type="text" placeholder="Write your text here..." name="text" class="input" id="litera"><input type="checkbox" id="nome" checked="" onchange="my();" class="btn1">Name<input type="checkbox" id="contourz" onchange="my();" checked="" class="btn1">Contour<hr>
   <input class="slider" style="width:20%;" type="range" min="100" max="800" step="10" value="300" id="myRanges" onchange="my()" ontouchmove="costycnc1(this.value)"><hr>
   ROTATE TABLE<hr>
              <input class="input" id="rotate" value="8" onchange="display()"> Rotate<hr>
@@ -178,7 +178,62 @@ Rotate table-<input type="checkbox" onchange="display()" id="pr" class="cyberpun
 	  
 	  
      
-dpi:
+
+  </div>
+  <div class="column">
+           <input id="raport1" value="1" onchange="calculeaza1()" class="btn1">Rap X
+      <hr>  <input id="raport2" value="1" onchange="calculeaza1()" disabled="" class="btn1">Rap Y
+      <hr><input type="text" id="calcx" onchange="calculeaza()" class="btn1">Dim X(CM)
+	  <hr><input type="text" id="calcy" onchange="calculeaza()" disabled="" class="btn1">Dim Y(CM)
+      <hr><input type="checkbox" id="due" onchange="check();" checked="" class="btn1">RAP (make Y editable)<hr>
+	  <input type="text" id="feedrate" value="350" onchange="localStorage.feedrate=this.value;" class="btn1">F -Cut Velocity<hr>
+	  <input type="text" id="hotwire" value="700" onchange="localStorage.hotwire=this.value;" class="btn1">S -Temperature (maxim 1000)
+	  
+
+  </div>
+  <div class="column" >
+<label style="color:#FFCC70;">⚙️ COSTYCNC Cylinder Diameter (mm):</label>
+<input type="text" id="costycnc_diameter" onchange="calculeaza()" class="input" value="120" step="1" style="width:120px; margin-bottom:10px;">
+<div style="font-size:11px; color:#ccc; margin-bottom:10px;">Rotary on X axis | GRBL $102=8.888 fixed</div>
+      GCODE:<textarea cols="22" form="usrform1" id="gcode" name="textg" rows="6" onchange="costycncdesign(this.value)" class="btn1"></textarea><hr>
+	  
+	      <script>
+        const inputS = document.getElementById('hotwire');
+        const inputF = document.getElementById('feedrate');
+        const textarea = document.getElementById('gcode');
+
+        function aggiorna() {
+            const nuovaRiga = `M3 S${inputS.value} F${inputF.value}`;
+            
+            // Se la textarea è vuota, scrive la riga direttamente
+            if (textarea.value.trim() === "") {
+               
+            } else {
+                // Se contiene testo, sostituisce solo la prima riga esistente
+                textarea.value = textarea.value.replace(/^M3 S\d+ F\d+/, nuovaRiga);
+            }
+        }
+
+        // Ascolta i cambiamenti sui campi S e F
+        inputS.addEventListener('input', aggiorna);
+        inputF.addEventListener('input', aggiorna);
+
+        // Genera il codice iniziale all'avvio della pagina
+        aggiorna();
+    </script>
+	  
+	  
+	  
+	  
+	  <!--button onclick="xhr();" class="btn">EXECUTE costycnc.nc</button><button onclick="savegcodetomks1();" class="btn">Scrive on SDCARD</button><hr>     
+	  <input type="file" id="flvalue" accept=".bmp,.jpg,.png,.svg" onchange="openFile(event)" class="btn"><hr-->
+	  
+	  <a href="/index.html"><button class="btn">HOME PAGE</button><button onclick="saveTextAsFile()" class="btn">Save gcode</button></a><hr>
+	  <!--hr>name file<input type="text" id="nfile" value="costycnc">.nc
+	   <button id="pasteBtn">Paste SVG da Inkscape</button><hr>
+	  <input type="checkbox" id="contour" onchange="contoura();" class="btn1">only contour<hr-->
+	  
+	  dpi:
 	  
 	      <select id="scaledpi" onchange="display();localStorage.dpi=this.selectedIndex;console.log(this.selectedIndex)" class="btn1">
 		  <option value="120">120</option>
@@ -186,7 +241,7 @@ dpi:
           <option value="96">96</option>
           <option value="300">300</option>
           </select>
-		  	              <input   style="display:none" class="slider" type="range" min="5" max="20" step=".01" value="19" id="myRanges" onmousemove="scale=20-this.value;svg2.attr('viewBox','0,0,'+(scale)+','+(scale));" ontouchmove="scale=20-this.value;svg2.attr('viewBox','0,0,'+(scale)+','+(scale));">
+		 <input   style="display:none" class="slider" type="range" min="5" max="20" step=".01" value="19" id="myRanges" onmousemove="scale=20-this.value;svg2.attr('viewBox','0,0,'+(scale)+','+(scale));" ontouchmove="scale=20-this.value;svg2.attr('viewBox','0,0,'+(scale)+','+(scale));">
 						  
           
 <a href="#" onclick="fetch('/command?commandText=%18'); return false;"
@@ -205,28 +260,6 @@ dpi:
    ">
   🛑 STOP MACCHINA
 </a>
-  </div>
-  <div class="column">
-           <input id="raport1" value="1" onchange="calculeaza1()" class="btn1">Rap X
-      <hr>  <input id="raport2" value="1" onchange="calculeaza1()" disabled="" class="btn1">Rap Y
-      <hr><input type="text" id="calcx" onchange="calculeaza()" class="btn1">Dim X(CM)
-	  <hr><input type="text" id="calcy" onchange="calculeaza()" disabled="" class="btn1">Dim Y(CM)
-      <hr><input type="checkbox" id="due" onchange="check();" checked="" class="btn1">RAP (make Y editable)<hr>
-	  <input type="text" id="feedrate" value="500" onchange="localStorage.feedrate=this.value;" class="btn1">Feedrate F<hr>
-	  <input type="text" id="hotwire" value="1000" onchange="localStorage.hotwire=this.value;" class="btn1">Hotwire S(maxim 1000)
-  </div>
-  <div class="column" >
-<label style="color:#FFCC70;">⚙️ COSTYCNC Cylinder Diameter (mm):</label>
-<input type="number" id="costycnc_diameter" class="input" value="120" step="1" style="width:120px; margin-bottom:10px;">
-<div style="font-size:11px; color:#ccc; margin-bottom:10px;">Rotary on X axis | GRBL $102=8.888 fixed</div>
-      GCODE:<textarea cols="22" form="usrform1" id="gcode" name="textg" rows="6" onchange="costycncdesign(this.value)" class="btn1"></textarea><hr>
-	  <button onclick="xhr();" class="btn">EXECUTE costycnc.nc</button><button onclick="savegcodetomks1();" class="btn">Scrive on SDCARD</button><hr>     
-	  <input type="file" id="flvalue" accept=".bmp,.jpg,.png,.svg" onchange="openFile(event)" class="btn"><hr>
-	  
-	  <a href="/index.html"><button class="btn">HOME PAGE</button><button onclick="saveTextAsFile()" class="btn">Save gcode</button></a>
-	  <hr>name file<input type="text" id="nfile" value="costycnc">.nc
-	   <button id="pasteBtn">Paste SVG da Inkscape</button><hr>
-	  <input type="checkbox" id="contour" onchange="contoura();" class="btn1">only contour
   </div>
 </div>
         
@@ -1984,7 +2017,7 @@ var costycnc_scale = costycnc_getScaleFactor();
 	    firstx=(curve.c[i * 3 + 1].x * sizex).toFixed(3);
 		firsty=(curve.c[i * 3 + 1].y * sizey).toFixed(3);
         var firstx_scaled = (parseFloat(firstx) * costycnc_scale).toFixed(3);
-	    b +="G01 X"+firstx_scaled;
+	    b +="G01 Z"+firstx_scaled;
 		b +=" Y0\n";
 		 }
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -1997,7 +2030,7 @@ var costycnc_scale = costycnc_getScaleFactor();
      if(xx < minx0) minx0=xx;
      if(yy < miny0) miny0=yy;
 	 var x_scaled = (parseFloat(maxx) * costycnc_scale).toFixed(3);
-	 b += 'G01 X' + x_scaled + ' Y' + maxy + '\n';
+	 b += 'G01 Z' + x_scaled + ' Y' + maxy + '\n';
 	 maxx= (curve.c[i * 3 + 1].x * sizex).toFixed(3); 
      maxy =  (curve.c[i * 3 + 1].y * sizey).toFixed(3);  
      xx=parseFloat(maxx);
@@ -2007,7 +2040,7 @@ var costycnc_scale = costycnc_getScaleFactor();
      if(xx < minx0) minx0=xx;
      if(yy < miny0) miny0=yy;
 	 x_scaled = (parseFloat(maxx) * costycnc_scale).toFixed(3);
-     b += 'G01 X' + x_scaled + ' Y' + maxy + '\n';
+     b += 'G01 Z' + x_scaled + ' Y' + maxy + '\n';
 	 maxx= (curve.c[i * 3 + 2].x * sizex).toFixed(3); 
      maxy =  (curve.c[i * 3 + 2].y * sizey).toFixed(3); 
      xx=parseFloat(maxx);
@@ -2017,17 +2050,17 @@ var costycnc_scale = costycnc_getScaleFactor();
      if(xx < minx0) minx0=xx;
      if(yy < miny0) miny0=yy;
 	 x_scaled = (parseFloat(maxx) * costycnc_scale).toFixed(3);
-     b += 'G01 X' + x_scaled + ' Y' + maxy + '\n';
+     b += 'G01 Z' + x_scaled + ' Y' + maxy + '\n';
         return b;
       }
       function segment(i) {
 		  var s=""; 
 		  	if (i==0) {
 		s +="M3 S"+document.getElementById("hotwire").value+" F"+document.getElementById("feedrate").value+"\n";	
-		s +="G21 G90\nG92 X0 Y0\n";	
+		s +="G21 G90\nG92 Z0 Y0\n";	
 	    firstx=(curve.c[i * 3 + 1].x * sizex).toFixed(3);
 		firsty=(curve.c[i * 3 + 1].y * sizey).toFixed(3);
-	    s +="G01 X"+firstx_scaled;
+	    s +="G01 Z"+firstx_scaled;
 		s +=" Y0\n";
 		 }
 	 maxx= (curve.c[i * 3 + 1].x * sizex).toFixed(3); 
@@ -2039,7 +2072,7 @@ var costycnc_scale = costycnc_getScaleFactor();
      if(xx < minx0) minx0=xx;
      if(yy < miny0) miny0=yy;
 	 var x_scaled = (parseFloat(maxx) * costycnc_scale).toFixed(3);
-     s += 'G01 X' + x_scaled + ' Y' + maxy + '\n';
+     s += 'G01 Z' + x_scaled + ' Y' + maxy + '\n';
 	 maxx= (curve.c[i * 3 + 2].x * sizex).toFixed(3); 
      maxy =  (curve.c[i * 3 + 2].y * sizey).toFixed(3); 
      xx=parseFloat(maxx);
@@ -2049,7 +2082,7 @@ var costycnc_scale = costycnc_getScaleFactor();
      if(xx < minx0) minx0=xx;
      if(yy < miny0) miny0=yy;
 	 var x_scaled = (parseFloat(maxx) * costycnc_scale).toFixed(3);
-     s += 'G01 X' + x_scaled + ' Y' + maxy + '\n';
+     s += 'G01 Z' + x_scaled + ' Y' + maxy + '\n';
         return s;
       }
       var n = curve.n, i;
@@ -2062,7 +2095,7 @@ var costycnc_scale = costycnc_getScaleFactor();
       }
 var costycnc_scale_end = costycnc_getScaleFactor();
 var firstx_scaled_end = (parseFloat(firstx) * costycnc_scale_end).toFixed(3);
-p += "G01 X"+firstx_scaled_end+" Y"+firsty+"\n"+"G01 Y0\n"+"G01 X0\n";
+p += "G01 Z"+firstx_scaled_end+" Y"+firsty+"\n"+"G01 Y0\n"+"G01 Z0\n";
 																   
       return p;
     }

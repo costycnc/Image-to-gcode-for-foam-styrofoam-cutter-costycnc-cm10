@@ -1,10 +1,75 @@
-<html>
+<!DOCTYPE html>
+<html lang="it">
 <head>
-	<link rel="canonical" href="https://www.costycnc.it/tools/cylinder/" />
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<title>ESP3D WebUI</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<!-- SEO Primaria -->
+	<title>Taglio Cilindri Traforati CNC - Tool Online | CostyCNC</title>
+	<meta name="description" content="Generatore di G-Code online per il taglio e la traforatura a percorso continuo di cilindri in polistirolo. Sfrutta l'innovativa tecnologia Rotary-on-X di CostyCNC.">
+	<meta name="keywords" content="costycnc, taglio cilindri traforati, rotary on x, cnc filo caldo, hot wire cnc, g-code cilindro, grbl rotary, traforatura polistirolo">
+	<link rel="canonical" href="https://costycnc.it">
+
+	<!-- Open Graph / Facebook / WhatsApp (Anteprime ricche) -->
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://costycnc.it">
+	<meta property="og:title" content="Taglio Cilindri Traforati CNC - Tool Online | CostyCNC">
+	<meta property="og:description" content="Configura il taglio continuo di cilindri cavi ornamentali. Inserisci il diametro, genera il codice e incollalo in CostyCNC.">
+	<meta property="og:image" content="https://costycnc.it"> <!-- Inserisci un link reale alla foto del cilindro tagliato se disponibile -->
+
+	<!-- Twitter Card -->
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content="Taglio Cilindri Traforati CNC - Tool Online">
+	<meta name="twitter:description" content="Genera G-Code per lavorazioni a filo caldo su asse rotativo con tecnologia Rotary-on-X.">
+	<meta name="twitter:image" content="https://costycnc.it">
+
+	<!-- SEO Potente: Dati Strutturati JSON-LD (Schema.org) -->
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@graph": [
+			{
+				"@type": "WebApplication",
+				"@id": "https://costycnc.it#webapp",
+				"url": "https://costycnc.it",
+				"name": "Generatore Taglio Cilindri Traforati CostyCNC",
+				"applicationCategory": "DeveloperApplication",
+				"operatingSystem": "All",
+				"browserRequirements": "Requires HTML5 canvas and JavaScript.",
+				"description": "Applicazione web per calcolare e scalare le coordinate X del G-Code per macchine CNC a filo caldo con asse rotativo finto-X.",
+				"creator": {
+					"@type": "Person",
+					"name": "Boboaca Costel",
+					"alternateName": "costycnc"
+				}
+			},
+			{
+				"@type": "HowTo",
+				"name": "Come generare il G-Code per cilindri traforati con CostyCNC",
+				"description": "Guida rapida per convertire un tracciato in codice macchina scalato sul diametro del cilindro.",
+				"step": [
+					{
+						"@type": "HowToStep",
+						"text": "Inserisci il diametro in millimetri del cilindro di schiuma o polistirolo.",
+						"name": "Impostazione Diametro"
+					},
+					{
+						"@type": "HowToStep",
+						"text": "Carica il file vettoriale o l'immagine del pattern da traforare.",
+						"name": "Caricamento Grafica"
+					},
+					{
+						"@type": "HowToStep",
+						"text": "Copia il codice G-Code generato a percorso continuo e incollalo nell'interfaccia CostyCNC.",
+						"name": "Esportazione G-Code"
+					}
+				]
+			}
+		]
+	}
+	</script>
+
 <style>
 * {
   box-sizing: border-box;

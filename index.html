@@ -2082,7 +2082,7 @@ var costycnc_scale = costycnc_getScaleFactor();
 	    firstx=(curve.c[i * 3 + 1].x * sizex).toFixed(3);
 		firsty=(curve.c[i * 3 + 1].y * sizey).toFixed(3);
         var firstx_scaled = (parseFloat(firstx) * costycnc_scale).toFixed(3);
-	    b +="G01 Z"+firstx_scaled;
+	    b +="G01 X"+firstx_scaled;
 		b +=" Y0\n";
 		 }
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -2095,7 +2095,7 @@ var costycnc_scale = costycnc_getScaleFactor();
      if(xx < minx0) minx0=xx;
      if(yy < miny0) miny0=yy;
 	 var x_scaled = (parseFloat(maxx) * costycnc_scale).toFixed(3);
-	 b += 'G01 Z' + x_scaled + ' Y' + maxy + '\n';
+	 b += 'G01 X' + x_scaled + ' Y' + maxy + '\n';
 	 maxx= (curve.c[i * 3 + 1].x * sizex).toFixed(3); 
      maxy =  (curve.c[i * 3 + 1].y * sizey).toFixed(3);  
      xx=parseFloat(maxx);
@@ -2105,7 +2105,7 @@ var costycnc_scale = costycnc_getScaleFactor();
      if(xx < minx0) minx0=xx;
      if(yy < miny0) miny0=yy;
 	 x_scaled = (parseFloat(maxx) * costycnc_scale).toFixed(3);
-     b += 'G01 Z' + x_scaled + ' Y' + maxy + '\n';
+     b += 'G01 X' + x_scaled + ' Y' + maxy + '\n';
 	 maxx= (curve.c[i * 3 + 2].x * sizex).toFixed(3); 
      maxy =  (curve.c[i * 3 + 2].y * sizey).toFixed(3); 
      xx=parseFloat(maxx);
@@ -2115,7 +2115,7 @@ var costycnc_scale = costycnc_getScaleFactor();
      if(xx < minx0) minx0=xx;
      if(yy < miny0) miny0=yy;
 	 x_scaled = (parseFloat(maxx) * costycnc_scale).toFixed(3);
-     b += 'G01 Z' + x_scaled + ' Y' + maxy + '\n';
+     b += 'G01 X' + x_scaled + ' Y' + maxy + '\n';
         return b;
       }
       function segment(i) {
@@ -2125,7 +2125,7 @@ var costycnc_scale = costycnc_getScaleFactor();
 		s +="G21 G90\nG92 Z0 Y0\n";	
 	    firstx=(curve.c[i * 3 + 1].x * sizex).toFixed(3);
 		firsty=(curve.c[i * 3 + 1].y * sizey).toFixed(3);
-	    s +="G01 Z"+firstx_scaled;
+	    s +="G01 X"+firstx_scaled;
 		s +=" Y0\n";
 		 }
 	 maxx= (curve.c[i * 3 + 1].x * sizex).toFixed(3); 
@@ -2137,7 +2137,7 @@ var costycnc_scale = costycnc_getScaleFactor();
      if(xx < minx0) minx0=xx;
      if(yy < miny0) miny0=yy;
 	 var x_scaled = (parseFloat(maxx) * costycnc_scale).toFixed(3);
-     s += 'G01 Z' + x_scaled + ' Y' + maxy + '\n';
+     s += 'G01 X' + x_scaled + ' Y' + maxy + '\n';
 	 maxx= (curve.c[i * 3 + 2].x * sizex).toFixed(3); 
      maxy =  (curve.c[i * 3 + 2].y * sizey).toFixed(3); 
      xx=parseFloat(maxx);
@@ -2147,7 +2147,7 @@ var costycnc_scale = costycnc_getScaleFactor();
      if(xx < minx0) minx0=xx;
      if(yy < miny0) miny0=yy;
 	 var x_scaled = (parseFloat(maxx) * costycnc_scale).toFixed(3);
-     s += 'G01 Z' + x_scaled + ' Y' + maxy + '\n';
+     s += 'G01 X' + x_scaled + ' Y' + maxy + '\n';
         return s;
       }
       var n = curve.n, i;
@@ -2160,7 +2160,7 @@ var costycnc_scale = costycnc_getScaleFactor();
       }
 var costycnc_scale_end = costycnc_getScaleFactor();
 var firstx_scaled_end = (parseFloat(firstx) * costycnc_scale_end).toFixed(3);
-p += "G01 Z"+firstx_scaled_end+" Y"+firsty+"\n"+"G01 Y0\n"+"G01 Z0\n";
+p += "G01 X"+firstx_scaled_end+" Y"+firsty+"\n"+"G01 Y0\n"+"G01 X0\n";
 																   
       return p;
     }

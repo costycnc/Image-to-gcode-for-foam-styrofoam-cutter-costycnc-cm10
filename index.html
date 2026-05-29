@@ -2071,7 +2071,8 @@ var firstx="";
 var firsty="";
 var p="" ;
 var costycnc_scale = costycnc_getScaleFactor();
-    function path(curve) {
+    function path(curve) {  
+		var firstx_scaled = "0.000";
       function bezier(i) {
 		   var b="";
 		   
@@ -2125,6 +2126,7 @@ var costycnc_scale = costycnc_getScaleFactor();
 		s +="G21 G90\nG92 Z0 Y0\n";	
 	    firstx=(curve.c[i * 3 + 1].x * sizex).toFixed(3);
 		firsty=(curve.c[i * 3 + 1].y * sizey).toFixed(3);
+        firstx_scaled = (parseFloat(firstx) * costycnc_scale).toFixed(3);
 	    s +="G01 X"+firstx_scaled;
 		s +=" Y0\n";
 		 }

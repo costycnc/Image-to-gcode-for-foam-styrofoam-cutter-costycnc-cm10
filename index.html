@@ -2123,7 +2123,7 @@ var costycnc_scale = costycnc_getScaleFactor();
 		  var s=""; 
 		  	if (i==0) {
 		s +="M3 S"+document.getElementById("hotwire").value+" F"+document.getElementById("feedrate").value+"\n";	
-		s +="G21 G90\nG92 Z0 Y0\n";	
+		s +="G21 G90\nG92 X0 Y0\n";	
 	    firstx=(curve.c[i * 3 + 1].x * sizex).toFixed(3);
 		firsty=(curve.c[i * 3 + 1].y * sizey).toFixed(3);
         firstx_scaled = (parseFloat(firstx) * costycnc_scale).toFixed(3);

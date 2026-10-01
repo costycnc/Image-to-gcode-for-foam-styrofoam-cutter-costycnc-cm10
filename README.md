@@ -15,7 +15,8 @@
 This software enables **CNC hot wire cutting of perforated hollow cylinders** (foam lampshades, decorative columns, cylindrical patterns) using a **single continuous path** .
 
 **Watch the original video:**  
-[![Watch the original video CostyCNC](https://youtube.com)](https://www.youtube.com/shorts/MuAxfM_hZJw)
+[![Guarda il video di CostyCNC](https://img.youtube.com/vi/MuAxfM_hZJw/0.jpg)](https://www.youtube.com/shorts/MuAxfM_hZJw)
+
 
 
 ---

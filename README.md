@@ -38,6 +38,13 @@ https://www.youtube.com/shorts/MuAxfM_hZJw
 3. **X coordinates automatically scale** based on cylinder diameter
 4. **GRBL `$102` is fixed** (user never changes it)
 
+### 🔬 Mathematical Kinematics & Architectural Topology
+From an algorithmic standpoint, the COSTYCNC Rotary-on-X engine implements a specialized **Virtual Coordinate Mapping Framework** that shifts spatial transformation math from the runtime hardware controller to an asynchronous client-side browser pipeline:
+* **Asymmetric 2D-to-Cylindrical Projection:** Instead of introducing a dedicated rotational kinematic transformer (A-axis/4th axis decoding), the software intercepts standard 2D vector matrices and modulates the horizontal coordinate ($X_{scaled} = X_{origin} \times (\text{Target Diameter} / \text{Calibration Baseline})$) prior to compilation.
+* **Stateless Interpolation Proxy:** By configuring a fixed steps/mm profile on the primary driver ($102=8.888 calibrated at 120mm), the physical stepper acts as an execution proxy for rotational angular velocity, bypassing standard GRBL runtime computation constraints.
+* **Continuous Multi-Layered Kerf Pathing:** Resolves structural collapse risks inherent to foam perforation by mapping continuous internal and external trajectories into an unbroken toolpath loop, eliminating rapid travel damage.
+
+
 ### Why This Creates Perforated Hollow Cylinders
 
 The continuous path logic allows the hot wire to:

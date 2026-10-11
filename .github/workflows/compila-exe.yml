@@ -13,7 +13,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest # Molto più veloce e stabile di Windows!
+    runs-on: windows-latest # Torniamo su Windows ma con uno strumento nativo diverso
 
     steps:
       - name: Scarica il codice da GitHub
@@ -22,22 +22,19 @@ jobs:
       - name: Configura Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 20
 
-      - name: Installa PKG (Convertitore HTML/JS in EXE)
-        run: npm install -g pkg
-
-      - name: Genera il file package.json di avvio
+      - name: Installa lo strumento Nativefier
         run: |
-          echo '{ "name": "CostyCNC-CM10", "version": "1.0.0", "main": "index.html", "bin": "index.html" }' > package.json
+          npm install -g nativefier
 
-      - name: Compila il software in un file EXE Windows unico
+      - name: Compila HTML e JS in una App EXE Autonoma
         run: |
-          # Compila direttamente per Windows a 64 bit da una macchina Linux!
-          pkg . --targets node18-win-x64 --output CostyCNC_CM10.exe
+          # Questo comando prende la tua cartella attuale e la trasforma in una vera app Windows (.exe)
+          nativefier --name "CostyCNC_CM10" --platform "windows" --arch "x64" --single-instance "."
 
       - name: Salva il file EXE finale nei download
         uses: actions/upload-artifact@v4
         with:
-          name: CostyCNC-CM10-Windows-EXE
-          path: ./CostyCNC_CM10.exe
+          name: CostyCNC-CM10-Windows-App
+          path: CostyCNC_CM10-win32-x64/**/*

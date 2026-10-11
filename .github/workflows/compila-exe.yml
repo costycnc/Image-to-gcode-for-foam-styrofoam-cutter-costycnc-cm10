@@ -24,9 +24,10 @@ jobs:
         run: |
           python -c "import json; data = {'name': 'CostyCNC-CM10', 'main': 'index.html', 'window': {'title': 'CostyCNC CM10 - Image to GCode', 'width': 1200, 'height': 800, 'icon': 'favicon.ico'}}; open('package.json', 'w', encoding='utf-8').write(json.dumps(data, indent=2))"
 
-      - name: Compila il sito in un file EXE Windows
+      - name: Compila il sito in un file EXE Windows (Fix Glob)
         run: |
-          nwbuild --platforms win64 --flavor normal .
+          # Il parametro --glob=false risolve il bug del pacchetto non trovato su Windows
+          nwbuild --platforms=win64 --flavor=normal --glob=false .
 
       - name: Salva il file EXE finale nei download
         uses: actions/upload-artifact@v4

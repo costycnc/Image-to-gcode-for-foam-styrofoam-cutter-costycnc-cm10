@@ -1,7 +1,7 @@
 name: Genera EXE CostyCNC CM10
 
 on:
-  workflow_dispatch: # Ti dà il pulsante manuale per farlo partire quando vuoi
+  workflow_dispatch:
 
 jobs:
   build-windows:
@@ -20,9 +20,9 @@ jobs:
         run: |
           npm install -g nw-builder
 
-      - name: Genera il file di configurazione per l'applicazione
+      - name: Genera il file package.json correttamente via Python
         run: |
-          echo '{ "name": "CostyCNC-CM10", "main": "index.html", "window": { "title": "CostyCNC CM10 - Image to GCode", "width": 1200, "height": 800, "icon": "favicon.ico" } }' > package.json
+          python -c "import json; data = {'name': 'CostyCNC-CM10', 'main': 'index.html', 'window': {'title': 'CostyCNC CM10 - Image to GCode', 'width': 1200, 'height': 800, 'icon': 'favicon.ico'}}; open('package.json', 'w', encoding='utf-8').write(json.dumps(data, indent=2))"
 
       - name: Compila il sito in un file EXE Windows
         run: |

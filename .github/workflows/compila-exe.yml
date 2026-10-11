@@ -20,17 +20,11 @@ jobs:
         run: |
           npm install -g nw-builder
 
-      - name: Genera il file package.json correttamente via Python
+      - name: Genera il file package.json completo via Python
         run: |
-          python -c "import json; data = {'name': 'CostyCNC-CM10', 'main': 'index.html', 'window': {'title': 'CostyCNC CM10 - Image to GCode', 'width': 1200, 'height': 800, 'icon': 'favicon.ico'}}; open('package.json', 'w', encoding='utf-8').write(json.dumps(data, indent=2))"
+          python -c "import json; data = {'name': 'costycnc-cm10', 'main': 'index.html', 'window': {'title': 'CostyCNC CM10 - Image to GCode', 'width': 1200, 'height': 800, 'icon': 'favicon.ico'}, 'nwbuild': {'platforms': ['win64'], 'flavor': 'normal', 'glob': False}}; open('package.json', 'w', encoding='utf-8').write(json.dumps(data, indent=2))"
 
-      - name: Compila il sito in un file EXE Windows (Fix Glob)
+      - name: Compila il sito in un file EXE Windows
         run: |
-          # Il parametro --glob=false risolve il bug del pacchetto non trovato su Windows
-          nwbuild --platforms=win64 --flavor=normal --glob=false .
-
-      - name: Salva il file EXE finale nei download
-        uses: actions/upload-artifact@v4
-        with:
-          name: CostyCNC-CM10-Windows-EXE
-          path: build/CostyCNC-CM10/win64/**/*
+          # Avvia il build leggendo la configurazione 'nwbuild' inserita nel package.json
+          nwbuild

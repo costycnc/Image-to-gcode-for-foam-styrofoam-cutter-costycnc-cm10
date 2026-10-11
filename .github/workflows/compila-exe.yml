@@ -1,0 +1,35 @@
+name: Genera EXE CostyCNC CM10
+
+on:
+  workflow_dispatch: # Ti dà il pulsante manuale per farlo partire quando vuoi
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Scarica il codice da GitHub
+        uses: actions/checkout@v4
+
+      - name: Configura Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Installa lo strumento di compilazione
+        run: |
+          npm install -g nw-builder
+
+      - name: Genera il file di configurazione per l'applicazione
+        run: |
+          echo '{ "name": "CostyCNC-CM10", "main": "index.html", "window": { "title": "CostyCNC CM10 - Image to GCode", "width": 1200, "height": 800, "icon": "favicon.ico" } }' > package.json
+
+      - name: Compila il sito in un file EXE Windows
+        run: |
+          nwbuild --platforms win64 --flavor normal .
+
+      - name: Salva il file EXE finale nei download
+        uses: actions/upload-artifact@v4
+        with:
+          name: CostyCNC-CM10-Windows-EXE
+          path: build/CostyCNC-CM10/win64/**/*

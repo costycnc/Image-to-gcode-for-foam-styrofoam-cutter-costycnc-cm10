@@ -11,10 +11,10 @@ jobs:
       - name: Scarica il codice da GitHub
         uses: actions/checkout@v4
 
-      - name: Configura Node.js
+      - name: Configura Node.js (Aggiornato a Node 22)
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Installa lo strumento di compilazione
         run: |
@@ -26,5 +26,11 @@ jobs:
 
       - name: Compila il sito in un file EXE Windows
         run: |
-          # Avvia il build leggendo la configurazione 'nwbuild' inserita nel package.json
-          nwbuild
+          # Il punto (.) indica a nwbuild di compilare la cartella corrente
+          nwbuild .
+
+      - name: Salva il file EXE finale nei download
+        uses: actions/upload-artifact@v4
+        with:
+          name: CostyCNC-CM10-Windows-EXE
+          path: build/costycnc-cm10/win64/**/*

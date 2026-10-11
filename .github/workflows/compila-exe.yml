@@ -1,11 +1,19 @@
 name: Genera EXE CostyCNC CM10
 
 on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '*.md'
+      - '*.yml'
+      - '.gitignore'
+      - 'LICENSE'
   workflow_dispatch:
 
 jobs:
-  build-windows:
-    runs-on: windows-latest
+  build:
+    runs-on: ubuntu-latest # Molto più veloce e stabile di Windows!
 
     steps:
       - name: Scarica il codice da GitHub
@@ -16,15 +24,20 @@ jobs:
         with:
           node-version: 22
 
-      - name: Installa lo strumento di compilazione
-        run: |
-          npm install -g nw-builder
+      - name: Installa PKG (Convertitore HTML/JS in EXE)
+        run: npm install -g pkg
 
-      - name: Genera il file package.json completo via Python
+      - name: Genera il file package.json di avvio
         run: |
-          python -c "import json; data = {'name': 'costycnc-cm10', 'main': 'index.html', 'window': {'title': 'CostyCNC CM10 - Image to GCode', 'width': 1200, 'height': 800, 'icon': 'favicon.ico'}, 'mode': 'build', 'nwbuild': {'version': 'latest', 'flavor': 'normal', 'platforms': ['win64'], 'glob': False}}; open('package.json', 'w', encoding='utf-8').write(json.dumps(data, indent=2))"
+          echo '{ "name": "CostyCNC-CM10", "version": "1.0.0", "main": "index.html", "bin": "index.html" }' > package.json
 
-      - name: Compila il sito in un file EXE Windows
+      - name: Compila il software in un file EXE Windows unico
         run: |
-          # Usiamo i parametri espliciti per la cartella di origine (srcDir) e di destinazione (outDir)
-          nwbuild --srcDir="." --outDir="./build"
+          # Compila direttamente per Windows a 64 bit da una macchina Linux!
+          pkg . --targets node18-win-x64 --output CostyCNC_CM10.exe
+
+      - name: Salva il file EXE finale nei download
+        uses: actions/upload-artifact@v4
+        with:
+          name: CostyCNC-CM10-Windows-EXE
+          path: ./CostyCNC_CM10.exe

@@ -11,7 +11,7 @@ jobs:
       - name: Scarica il codice da GitHub
         uses: actions/checkout@v4
 
-      - name: Configura Node.js (Aggiornato a Node 22)
+      - name: Configura Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -22,15 +22,9 @@ jobs:
 
       - name: Genera il file package.json completo via Python
         run: |
-          python -c "import json; data = {'name': 'costycnc-cm10', 'main': 'index.html', 'window': {'title': 'CostyCNC CM10 - Image to GCode', 'width': 1200, 'height': 800, 'icon': 'favicon.ico'}, 'nwbuild': {'platforms': ['win64'], 'flavor': 'normal', 'glob': False}}; open('package.json', 'w', encoding='utf-8').write(json.dumps(data, indent=2))"
+          python -c "import json; data = {'name': 'costycnc-cm10', 'main': 'index.html', 'window': {'title': 'CostyCNC CM10 - Image to GCode', 'width': 1200, 'height': 800, 'icon': 'favicon.ico'}, 'mode': 'build', 'nwbuild': {'version': 'latest', 'flavor': 'normal', 'platforms': ['win64'], 'glob': False}}; open('package.json', 'w', encoding='utf-8').write(json.dumps(data, indent=2))"
 
       - name: Compila il sito in un file EXE Windows
         run: |
-          # Il punto (.) indica a nwbuild di compilare la cartella corrente
-          nwbuild .
-
-      - name: Salva il file EXE finale nei download
-        uses: actions/upload-artifact@v4
-        with:
-          name: CostyCNC-CM10-Windows-EXE
-          path: build/costycnc-cm10/win64/**/*
+          # Usiamo i parametri espliciti per la cartella di origine (srcDir) e di destinazione (outDir)
+          nwbuild --srcDir="." --outDir="./build"
